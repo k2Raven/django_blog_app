@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
-<h1>{{ title }}</h1>
-<p>{{ content }}</p>
-<p>{{ author }}</p>
+    <p><a href="/">На главную</a></p>
+    <h1>Article:</h1>
+    <p>{{ article.title }}</p>
+    <p>{{ article.content }}</p>
+    <p>{{ article.author }}</p>
 </body>
 </html>
