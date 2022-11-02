@@ -10,6 +10,12 @@
 
 <form action="/articles/add/" method="post">
     {% csrf_token %}
+    <label>Status:</label><br/>
+    <select name="status">
+        {% for value, status in statuses %}
+            <option value="{{ value }}">{{ status }}</option>
+        {% endfor %}
+    </select><br/>
 
     <label>Title:</label><br/>
     <input type="text" name="title"/><br/>

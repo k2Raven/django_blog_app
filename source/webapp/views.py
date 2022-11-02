@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from webapp.models import Article
+from webapp.models import Article, STATUS_CHOICES
 
 
 def index_views(request):
@@ -19,11 +19,12 @@ def article_view(request):
 
 def article_create_view(request):
     if request.method == "GET":
-        return render(request, "article_create.html")
+        return render(request, "article_create.html", {'statuses': STATUS_CHOICES})
     elif request.method == "POST":
         title = request.POST.get('title')
         content = request.POST.get('content')
         author = request.POST.get('author')
-        new_article = Article.objects.create(title=title, content=content, author=author)
+        status = request.POST.get('status')
+        new_article = Article.objects.create(title=title, content=content, author=author, status=status)
         context = {'article': new_article}
         return render(request, 'article_view.html', context)
