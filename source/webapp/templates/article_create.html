@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create</title>
-</head>
-<body>
-
+{% extends 'base.html' %}
+{% block content %}
 <h1>Create Article</h1>
 
-<form action="/articles/add/" method="post">
+<form action="" method="post">
     {% csrf_token %}
 
     <label>Title:</label><br/>
@@ -22,6 +16,4 @@
     <br/>
     <input type="submit" value="Send"/>
 </form>
-<p><a href="/">На главную</a></p>
-</body>
-</html>
+{% endblock %}

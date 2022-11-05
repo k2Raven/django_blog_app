@@ -1,19 +1,14 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
-</head>
-<body>
-    <p><a href="/">На главную</a></p>
-    <h1>Article:</h1>
-    <p>{{ article.title }}</p>
-    <p>{{ article.content }}</p>
-    <p>{{ article.author }}</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block nav %}
+    <li class="nav-item">
+          <a class="nav-link" href="{% url 'article_add' %}">Add Article</a>
+        </li>
+{% endblock %}
+
+{% block content %}
+<h1>Article:</h1>
+<p>{{ article.title }}</p>
+<p>{{ article.content }}</p>
+<p>{{ article.author }}</p>
+{% endblock %}
