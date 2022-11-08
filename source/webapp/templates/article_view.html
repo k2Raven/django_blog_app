@@ -3,7 +3,13 @@
 {% block nav %}
     <li class="nav-item">
           <a class="nav-link" href="{% url 'article_add' %}">Add Article</a>
-        </li>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="{% url 'article_update' article.pk %}">Update</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="{% url 'article_delete' article.pk %}">Delete</a>
+    </li>
 {% endblock %}
 
 {% block content %}
