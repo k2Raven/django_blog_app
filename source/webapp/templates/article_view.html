@@ -18,6 +18,9 @@
     <p>{{ article.title }}</p>
     <p>{{ article.content }}</p>
     <p>{{ article.author }}</p>
+    <p>Tags: {% for tag in article.tags.all %}
+        {{ tag.name }} {% if  not forloop.last %},{% endif %}
+    {% endfor %}</p>
     <h3>Comments:</h3>
     {% for comment in article.comments.all %}
         <p>{{ comment.text }}</p>

@@ -40,11 +40,9 @@ def article_create_view(request):
     elif request.method == "POST":
         form = ArticleForm(data=request.POST)
         if form.is_valid():
-            new_article = Article.objects.create(
-                title=form.cleaned_data['title'],
-                author=form.cleaned_data['author'],
-                content=form.cleaned_data['content']
-            )
+            tags = form.cleaned_data.pop('tags')
+            new_article = Article.objects.create(**form.cleaned_data)
+            new_article.tags.set(tags)
             return redirect('article_view', pk=new_article.pk)
         else:
             return render(request, "article_create.html", {'form': form})
@@ -57,6 +55,7 @@ def article_update_view(request, pk):
             'title': article.title,
             'author': article.author,
             'content': article.content,
+            'tags': article.tags.all(),
         })
         return render(request, 'article_update.html', {'form': form})
     elif request.method == "POST":
@@ -66,6 +65,7 @@ def article_update_view(request, pk):
             article.content = form.cleaned_data.get('content')
             article.author = form.cleaned_data.get('author')
             article.save()
+            article.tags.set(form.cleaned_data['tags'])
             return redirect('article_view', pk=article.pk)
         else:
             return render(request, 'article_update.html', {'form': form})
