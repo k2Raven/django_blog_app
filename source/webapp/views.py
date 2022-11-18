@@ -1,20 +1,36 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from webapp.models import Article
 from webapp.forms import ArticleForm
+from django.views import View
+
+from django.views.generic import TemplateView, RedirectView
 
 
-def index_views(request, *args, **kwargs):
-    articles = Article.objects.order_by('-created_at')
-    context = {
-        'articles': articles
-    }
-    return render(request, "index.html", context)
+class IndexViews(View):
+    def get(self, request, *args, **kwargs):
+        articles = Article.objects.order_by('-created_at')
+        context = {
+            'articles': articles
+        }
+        return render(request, "index.html", context)
 
 
-def article_view(request, pk, *args, **kwargs):
-    article = get_object_or_404(Article, pk=pk)
-    context = {'article': article}
-    return render(request, 'article_view.html', context)
+class ArticleView(TemplateView):
+    template_name = 'article_view.html'
+
+    # def get_template_names(self):
+    #     return 'article_view.html'
+
+    def get_context_data(self, **kwargs):
+        # context = super().get_context_data(**kwargs)
+        # context['article'] = get_object_or_404(Article, pk=kwargs.get('pk'))
+        # return context
+        kwargs['article'] = get_object_or_404(Article, pk=kwargs.get('pk'))
+        return super().get_context_data(**kwargs)
+
+
+class MyRedirectView(RedirectView):
+    url = 'https://ccbv.co.uk/projects/Django/4.1/django.views.generic.base/RedirectView/'
 
 
 def article_create_view(request):

@@ -1,75 +1,119 @@
 [
 {
-    "model": "webapp.article",
-    "pk": 1,
-    "fields": {
-        "title": "Title 1",
-        "author": "Name",
-        "content": "content 1",
-        "created_at": "2022-11-01T13:52:28.623Z",
-        "updated_at": "2022-11-01T14:30:44.002Z"
-    }
+  "model": "webapp.article",
+  "pk": 1,
+  "fields": {
+    "title": "Title 1",
+    "author": "Name",
+    "content": "content 1",
+    "created_at": "2022-11-01T13:52:28.623Z",
+    "updated_at": "2022-11-01T14:30:44.002Z"
+  }
 },
 {
-    "model": "webapp.article",
-    "pk": 3,
-    "fields": {
-        "title": "Title 3",
-        "author": "Name",
-        "content": "content 3",
-        "created_at": "2022-11-01T14:08:21.319Z",
-        "updated_at": "2022-11-01T14:08:21.319Z"
-    }
+  "model": "webapp.article",
+  "pk": 3,
+  "fields": {
+    "title": "Title 3",
+    "author": "Name",
+    "content": "content 3",
+    "created_at": "2022-11-01T14:08:21.319Z",
+    "updated_at": "2022-11-01T14:08:21.319Z"
+  }
 },
 {
-    "model": "webapp.article",
-    "pk": 4,
-    "fields": {
-        "title": "qwe",
-        "author": "Name 2",
-        "content": "content 2",
-        "created_at": "2022-11-01T14:09:59.469Z",
-        "updated_at": "2022-11-01T14:09:59.469Z"
-    }
+  "model": "webapp.article",
+  "pk": 5,
+  "fields": {
+    "title": "Title 4",
+    "author": "Unknown",
+    "content": "wefewfwefwefwef",
+    "created_at": "2022-11-01T14:31:06.905Z",
+    "updated_at": "2022-11-07T11:45:57.348Z"
+  }
 },
 {
-    "model": "webapp.article",
-    "pk": 5,
-    "fields": {
-        "title": "title 4",
-        "author": "Unknown",
-        "content": "wefewfwefwefwef",
-        "created_at": "2022-11-01T14:31:06.905Z",
-        "updated_at": "2022-11-01T14:31:06.905Z"
-    }
+  "model": "webapp.article",
+  "pk": 14,
+  "fields": {
+    "title": "Title333",
+    "author": "User 2",
+    "content": "qwe qwe qwe123123",
+    "created_at": "2022-11-07T11:46:27.991Z",
+    "updated_at": "2022-11-08T14:49:01.697Z"
+  }
 },
 {
-    "model": "webapp.article",
-    "pk": 6,
-    "fields": {
-        "title": "qweqw",
-        "author": "qweqweqw",
-        "content": "qweqweq",
-        "created_at": "2022-11-01T14:57:37.119Z",
-        "updated_at": "2022-11-01T14:57:37.119Z"
-    }
+  "model": "webapp.article",
+  "pk": 22,
+  "fields": {
+    "title": "213123",
+    "author": "Aleksei Kuzmin",
+    "content": "weqewqe ve wq eqwe qwe",
+    "created_at": "2022-11-15T14:29:01.338Z",
+    "updated_at": "2022-11-15T14:29:01.338Z"
+  }
 },
 {
-    "model": "auth.user",
-    "pk": 1,
-    "fields": {
-        "password": "pbkdf2_sha256$390000$5ETqfrdEBdO7HpV2vDk516$xkSVKxUjAGXE2KYjVelXgxgBPSg/fQsxFkhZqMI6XCI=",
-        "last_login": "2022-11-01T14:26:43.712Z",
-        "is_superuser": true,
-        "username": "admin",
-        "first_name": "",
-        "last_name": "",
-        "email": "",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2022-11-01T14:24:12.792Z",
-        "groups": [],
-        "user_permissions": []
-    }
+  "model": "webapp.comment",
+  "pk": 1,
+  "fields": {
+    "text": "text 1",
+    "author": "Unknown",
+    "article": 1,
+    "created_at": "2022-11-15T13:24:41.113Z",
+    "updated_at": "2022-11-15T13:24:41.113Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 2,
+  "fields": {
+    "text": "text 1",
+    "author": "Unknown",
+    "article": 3,
+    "created_at": "2022-11-15T13:25:57.196Z",
+    "updated_at": "2022-11-15T13:25:57.196Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 3,
+  "fields": {
+    "text": "text 3",
+    "author": "Unknown",
+    "article": 1,
+    "created_at": "2022-11-15T13:26:19.020Z",
+    "updated_at": "2022-11-15T13:26:19.020Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 4,
+  "fields": {
+    "text": "text 4",
+    "author": "Unknown",
+    "article": 1,
+    "created_at": "2022-11-15T13:30:26.184Z",
+    "updated_at": "2022-11-15T13:30:26.184Z"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$5ETqfrdEBdO7HpV2vDk516$xkSVKxUjAGXE2KYjVelXgxgBPSg/fQsxFkhZqMI6XCI=",
+    "last_login": "2022-11-08T14:58:15.514Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-11-01T14:24:12.792Z",
+    "groups": [],
+    "user_permissions": []
+  }
 }
 ]
