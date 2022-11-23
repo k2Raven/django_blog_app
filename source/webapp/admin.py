@@ -2,6 +2,10 @@ from django.contrib import admin
 from webapp.models import Article, Tag
 
 
+class ArticleTagInlines(admin.TabularInline):
+    model = Article.tags.through
+
+
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -10,8 +14,10 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ['author']
     search_fields = ['title', 'content']
     # fields = ['id', 'title', 'author', 'content', 'created_at', 'updated_at']
-    exclude = []
+    exclude = ['tags']
     readonly_fields = ['created_at', 'updated_at']
+    # filter_horizontal = ['tags']
+    inlines = (ArticleTagInlines,)
 
 
 admin.site.register(Article, ArticleAdmin)
