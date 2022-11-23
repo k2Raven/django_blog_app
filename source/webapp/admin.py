@@ -1,5 +1,5 @@
 from django.contrib import admin
-from webapp.models import Article
+from webapp.models import Article, Tag
 
 
 # Register your models here.
@@ -15,3 +15,4 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(Tag)

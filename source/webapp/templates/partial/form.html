@@ -5,11 +5,13 @@
 {% endfor %}
 
 {% for field in form %}
-    <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
-    {% for error in field.errors %}
-        <p class="text-danger">{{ error }}</p>
-    {% endfor %}
-    <p>{{ field }}</p>
+    <div class="form-check">
+        <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
+        {% for error in field.errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+        <p>{{ field }}</p>
+    </div>
 {% endfor %}
 
 
