@@ -1,19 +1,47 @@
+from django.db.models import Q
+from django.utils.http import urlencode
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from webapp.models import Article
-from webapp.forms import ArticleForm
+from webapp.forms import ArticleForm, SimpleSearchForm
 from django.views import View
 
-from django.views.generic import TemplateView, RedirectView, FormView
-from webapp.base_views import FormView as CustomFormView
+from django.views.generic import TemplateView, RedirectView, FormView, ListView
+from webapp.base_views import FormView as CustomFormView, ListView as CustomListView
 
 
-class IndexViews(View):
+class IndexViews(ListView):
+    template_name = 'index.html'
+    context_object_name = 'articles'
+    model = Article
+    ordering = ('-created_at',)
+    paginate_by = 3
+    paginate_orphans = 2
+
     def get(self, request, *args, **kwargs):
-        articles = Article.objects.order_by('-created_at')
-        context = {
-            'articles': articles
-        }
-        return render(request, "index.html", context)
+        self.form = self.get_search_form()
+        self.search_value = self.get_search_value()
+        return super().get(request, *args, **kwargs)
+
+    def get_search_form(self):
+        return SimpleSearchForm(self.request.GET)
+
+    def get_search_value(self):
+        if self.form.is_valid():
+            return self.form.cleaned_data['search']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.search_value:
+            queryset = queryset.filter(Q(title__icontains=self.search_value) | Q(author__icontains=self.search_value))
+        return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['form'] = self.form
+        if self.search_value:
+            context['query'] = urlencode({'search': self.search_value})
+            context['search'] = self.search_value
+        return context
 
 
 class ArticleView(TemplateView):

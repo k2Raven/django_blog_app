@@ -42,3 +42,7 @@ class ArticleForm(forms.ModelForm):
         if cleaned_data['title'] == cleaned_data.get('content', ''):
             raise ValidationError('Текст статьи не должен дублировать ее название!')
         return cleaned_data
+
+
+class SimpleSearchForm(forms.Form):
+    search = forms.CharField(max_length=50, required=False, label='Найти')
