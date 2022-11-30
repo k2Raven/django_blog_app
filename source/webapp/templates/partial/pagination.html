@@ -1,3 +1,4 @@
+{% load request_get_relace_page %}
 <ul class="pagination">
     {% if not page_obj.has_previous %}
         <li class="page-item disabled">
@@ -8,22 +9,25 @@
         </li>
     {% else %}
         <li class="page-item">
-            <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page=1">&laquo; В начало</a>
+            <a class="page-link" href="?{{ request|replace:1 }}">&laquo; В начало</a>
         </li>
         <li class="page-item">
-            <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.previous_page_number }}">Назад</a>
+            <a class="page-link" href="?{{ request|replace:page_obj.previous_page_number }}">Назад</a>
         </li>
         <li class="page-item"><a class="page-link"
-                                 href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                                 href="?{{ request|replace:page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
         </li>
     {% endif %}
 
     <li class="page-item active" aria-current="page">
-         <form method="get">
-             {% if search %}<input type="hidden" name="search" value="{{ search }}">{% endif %}
+        <form method="get">
+            {% for key, value in request.GET.items %}
+                {% if key != 'page' %}
+                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                {% endif %}
+            {% endfor %}
             <input type="text" class="form-control" name="page" value="{{ page_obj.number }}">
         </form>
-{#        <a class="page-link" href="#">{{ page_obj.number }}</a>#}
     </li>
 
     {% if not page_obj.has_next %}
@@ -37,13 +41,14 @@
         </li>
     {% else %}
         <li class="page-item"><a class="page-link"
-                                 href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                                 href="?{{ request|replace:page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+        </li>
         <li class="page-item">
-            <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Далее</a>
+            <a class="page-link" href="?{{ request|replace:page_obj.next_page_number }}">Далее</a>
 
         </li>
         <li class="page-item">
-            <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.paginator.num_pages }}">В конец &raquo;</a>
+            <a class="page-link" href="?{{ request|replace:page_obj.paginator.num_pages }}">В конец &raquo;</a>
 
         </li>
     {% endif %}
