@@ -10,6 +10,9 @@
     <li class="nav-item">
         <a class="nav-link" href="{% url 'article_delete' article.pk %}">Delete</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'article_comment_add' article.pk %}">Add Comment</a>
+    </li>
 {% endblock %}
 
 {% block content %}
@@ -22,7 +25,7 @@
         {{ tag.name }} {% if  not forloop.last %},{% endif %}
     {% endfor %}</p>
     <h3>Comments:</h3>
-    {% for comment in article.comments.all %}
+    {% for comment in comments %}
         <p>{{ comment.text }}</p>
         {%  empty %}
         <p>Комментариев нет</p>

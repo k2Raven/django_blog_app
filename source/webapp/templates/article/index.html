@@ -17,8 +17,8 @@
             <div class="col-4 my-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ article.title }}</h5>
-                        <a href="{% url 'article_view' article.pk %}" class="card-link">Подробнее...</a>
+                        <h5 class="card-title">{{ article.title }} ({{ article.get_comments_count }})</h5>
+                        <a href="{{ article.get_absolute_url }}" class="card-link">Подробнее...</a>
                     </div>
                 </div>
             </div>

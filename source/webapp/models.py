@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 from webapp.validate import at_least_8, MinLengthValidator
 from django.core.validators import MaxLengthValidator
 
@@ -19,6 +21,12 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     tags = models.ManyToManyField('webapp.Tag', related_name='articles', blank=True)
+
+    def get_absolute_url(self):
+        return reverse('article_view', kwargs={'pk': self.pk})
+
+    def get_comments_count(self):
+        return self.comments.count()
 
     def __str__(self):
         return f'{self.pk}. {self.title}'
