@@ -8,8 +8,7 @@
 {% block content %}
     <h1>Are you sure want to delete article "{{ article.title }}"?</h1>
     <form method="POST" action="{% url "article_delete" article.pk %}" class="text-center">
-        {% csrf_token %}
-        <p><input type="submit" value="Confirm"></p>
-        <p><a href="{% url "article_view" article.pk %}">Cancel</a></p>
+        {% include 'partial/form.html' with button_text="Delete" %}
+        <p><a href="{% url "article_view" article.pk %}">Next</a></p>
     </form>
 {% endblock %}

@@ -37,6 +37,16 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['text', 'author']
 
+class ArticleDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title']
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if self.instance.title != title:
+            raise ValidationError('Названия не совпадают')
+        return title
 
 class SimpleSearchForm(forms.Form):
     search = forms.CharField(max_length=50, required=False, label='Найти')
