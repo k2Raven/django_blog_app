@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from webapp.views import IndexViews, ArticleCreateView, ArticleView, MyRedirectView, ArticleUpdateView, \
-    article_delete_view, ArticleCommentCreateView
+    ArticleDeleteView, ArticleCommentCreateView, CommentUpdateView, CommentDeleteView
 from django.views.generic import RedirectView
 
 urlpatterns = [
@@ -27,6 +27,8 @@ urlpatterns = [
     path('article/<int:pk>/comment/add/', ArticleCommentCreateView.as_view(), name='article_comment_add'),
     path('articles/add/', ArticleCreateView.as_view(), name='article_add'),
     path('article/<int:pk>/update', ArticleUpdateView.as_view(), name='article_update'),
-    path('article/<int:pk>/delete', article_delete_view, name='article_delete'),
+    path('article/<int:pk>/delete', ArticleDeleteView.as_view(), name='article_delete'),
+    path('comment/<int:pk>/update', CommentUpdateView.as_view(), name='comment_update'),
+    path('comment/<int:pk>/delete', CommentDeleteView.as_view(), name='comment_delete'),
     path('redirect_view/', MyRedirectView.as_view())
 ]
