@@ -2,6 +2,7 @@ from django import forms
 from django.forms import widgets, ValidationError
 from webapp.models import Article, Comment
 
+
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
@@ -36,6 +37,18 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['text', 'author']
+
+
+class ArticleDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title']
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if self.instance.title != title:
+            raise ValidationError('Названия не совпадают')
+        return title
 
 
 class SimpleSearchForm(forms.Form):

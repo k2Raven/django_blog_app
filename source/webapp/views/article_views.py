@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.utils.http import urlencode
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from webapp.models import Article
-from webapp.forms import ArticleForm, SimpleSearchForm
+from webapp.forms import ArticleForm, SimpleSearchForm, ArticleDeleteForm
 
 from django.views.generic import RedirectView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -81,3 +81,14 @@ class ArticleDeleteView(DeleteView):
     model = Article
     context_object_name = 'article'
     success_url = reverse_lazy('index')
+    form_class = ArticleDeleteForm
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(instance=self.object, data=request.POST)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
