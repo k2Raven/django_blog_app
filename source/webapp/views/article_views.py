@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.utils.http import urlencode
@@ -59,14 +60,15 @@ class MyRedirectView(RedirectView):
     url = 'https://ccbv.co.uk/projects/Django/4.1/django.views.generic.base/RedirectView/'
 
 
-class ArticleCreateView(CreateView):
+class ArticleCreateView(LoginRequiredMixin, CreateView):
     template_name = "article/article_create.html"
     model = Article
-    # fields = ['title', 'content', 'author', 'tags']
     form_class = ArticleForm
 
-    # def get_success_url(self):
-    #     return reverse('article_view', kwargs={'pk': self.object.pk})
+    # def dispatch(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return super().dispatch( request, *args, **kwargs)
+    #     return redirect('accounts:login')
 
 
 class ArticleUpdateView(UpdateView):

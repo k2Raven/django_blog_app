@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
 {% block nav %}
+
+    {% if request.user.is_authenticated %}
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'article_add' %}">Add Article</a>
+        <a class="nav-link" href="{% url 'webapp:article_add' %}">Add Article</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'article_update' article.pk %}">Update</a>
+        <a class="nav-link" href="{% url 'webapp:article_update' article.pk %}">Update</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'article_delete' article.pk %}">Delete</a>
+        <a class="nav-link" href="{% url 'webapp:article_delete' article.pk %}">Delete</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'article_comment_add' article.pk %}">Add Comment</a>
+        <a class="nav-link" href="{% url 'webapp:article_comment_add' article.pk %}">Add Comment</a>
     </li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -27,8 +30,8 @@
     <h3>Comments:</h3>
     {% for comment in comments %}
         <p>{{ comment.text }}</p>
-        <a href="{% url 'comment_update' comment.pk %}">Update</a>
-        <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+        <a href="{% url 'webapp:comment_update' comment.pk %}">Update</a>
+        <a href="{% url 'webapp:comment_delete' comment.pk %}">Delete</a>
         {%  empty %}
         <p>Комментариев нет</p>
     {% endfor %}

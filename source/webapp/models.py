@@ -23,7 +23,7 @@ class Article(models.Model):
     tags = models.ManyToManyField('webapp.Tag', related_name='articles', blank=True)
 
     def get_absolute_url(self):
-        return reverse('article_view', kwargs={'pk': self.pk})
+        return reverse('webapp:article_view', kwargs={'pk': self.pk})
 
     def get_comments_count(self):
         return self.comments.count()
