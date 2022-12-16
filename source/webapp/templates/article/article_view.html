@@ -3,36 +3,50 @@
 {% block nav %}
 
     {% if request.user.is_authenticated %}
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'webapp:article_add' %}">Add Article</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'webapp:article_update' article.pk %}">Update</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'webapp:article_delete' article.pk %}">Delete</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'webapp:article_comment_add' article.pk %}">Add Comment</a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'webapp:article_add' %}">Add Article</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'webapp:article_update' article.pk %}">Update</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'webapp:article_delete' article.pk %}">Delete</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'webapp:article_comment_add' article.pk %}">Add Comment</a>
+        </li>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    <h1>Article:</h1>
-    <p>{{ test }}</p>
-    <p>{{ article.title }}</p>
-    <p>{{ article.content }}</p>
-    <p>{{ article.author }}</p>
-    <p>Tags: {% for tag in article.tags.all %}
-        {{ tag.name }} {% if  not forloop.last %},{% endif %}
-    {% endfor %}</p>
-    <h3>Comments:</h3>
-    {% for comment in comments %}
-        <p>{{ comment.text }}</p>
-        <a href="{% url 'webapp:comment_update' comment.pk %}">Update</a>
-        <a href="{% url 'webapp:comment_delete' comment.pk %}">Delete</a>
-        {%  empty %}
-        <p>Комментариев нет</p>
-    {% endfor %}
+
+    <div class="card my-3">
+        <div class="card-body">
+            <h3 class="card-title fs-2">{{ article.title }}</h3>
+            <p class="card-text text-secondary">Автор: {{ article.author }}</p>
+            <p class="card-text text-secondary">Теги: {% for tag in article.tags.all %}
+                {{ tag.name }} {% if  not forloop.last %},{% endif %}
+            {% endfor %}</p>
+            <p class="card-text">{{ article.content }}</p>
+        </div>
+    </div>
+    <h3 class="ms-3">Comments:</h3>
+    <div class="row">
+        {% for comment in comments %}
+
+            <div class="col-sm-4">
+                <div class="card text-bg-light mb-3">
+                    <div class="card-body">
+                        <p class="card-text">{{ comment.text }}</p>
+                        <div class="d-flex justify-content-around">
+                            <a href="{% url 'webapp:comment_update' comment.pk %}" class="btn btn-success px-5">Update</a>
+                            <a href="{% url 'webapp:comment_delete' comment.pk %}" class="btn btn-danger px-5">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Комментариев нет</p>
+        {% endfor %}
+    </div>
 {% endblock %}

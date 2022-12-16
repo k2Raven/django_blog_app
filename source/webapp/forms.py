@@ -62,4 +62,4 @@ class ArticleDeleteForm(forms.ModelForm):
 
 
 class SimpleSearchForm(forms.Form):
-    search = forms.CharField(max_length=50, required=False, label='Найти')
+    search = forms.CharField(max_length=50, required=False, label='Найти', widget=widgets.TextInput(attrs={'class': "form-control w-25"}))
