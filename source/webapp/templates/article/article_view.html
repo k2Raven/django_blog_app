@@ -6,12 +6,17 @@
         <li class="nav-item">
             <a class="nav-link" href="{% url 'webapp:article_add' %}">Add Article</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'webapp:article_update' article.pk %}">Update</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'webapp:article_delete' article.pk %}">Delete</a>
-        </li>
+
+        {% if perms.webapp.change_article or article.author == request.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'webapp:article_update' article.pk %}">Update</a>
+            </li>
+        {% endif %}
+        {% if perms.webapp.delete_article  or article.author == request.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'webapp:article_delete' article.pk %}">Delete</a>
+            </li>
+        {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'webapp:article_comment_add' article.pk %}">Add Comment</a>
         </li>
@@ -38,9 +43,16 @@
                 <div class="card text-bg-light mb-3">
                     <div class="card-body">
                         <p class="card-text">{{ comment.text }}</p>
+
                         <div class="d-flex justify-content-around">
-                            <a href="{% url 'webapp:comment_update' comment.pk %}" class="btn btn-success px-5">Update</a>
-                            <a href="{% url 'webapp:comment_delete' comment.pk %}" class="btn btn-danger px-5">Delete</a>
+                            {% if perms.webapp.change_comment or comment.author == request.user %}
+                                <a href="{% url 'webapp:comment_update' comment.pk %}"
+                                   class="btn btn-success px-5">Update</a>
+                            {% endif %}
+                            {% if perms.webapp.delete_comment or comment.author == request.user %}
+                                <a href="{% url 'webapp:comment_delete' comment.pk %}"
+                                   class="btn btn-danger px-5">Delete</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

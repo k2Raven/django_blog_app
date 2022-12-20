@@ -6,10 +6,9 @@ from webapp.models import Article, Comment
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'author', 'tags']
+        fields = ['title', 'content', 'tags']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'author': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),
             'tags': widgets.CheckboxSelectMultiple,
         }
@@ -36,7 +35,7 @@ class ArticleForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['text', 'author']
+        fields = ['text']
 
 class ArticleDeleteForm(forms.ModelForm):
     class Meta:

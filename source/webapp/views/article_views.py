@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.utils.http import urlencode
@@ -65,25 +66,40 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
     form_class = ArticleForm
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
     # def dispatch(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         return super().dispatch( request, *args, **kwargs)
-    #     return redirect('accounts:login')
+    #     if not request.user.is_authenticated:
+    #         return redirect('accounts:login')
+    #     if not request.user.has_perm('webapp.add_article'):
+    #         raise PermissionDenied
+    #     return super().dispatch( request, *args, **kwargs)
 
 
-class ArticleUpdateView(UpdateView):
+
+class ArticleUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = "article/article_update.html"
     form_class = ArticleForm
     model = Article
     context_object_name = 'article'
+    permission_required = 'webapp.change_article'
+
+    def has_permission(self):
+        return super().has_permission() or self.get_object().author == self.request.user
 
 
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'article/article_delete.html'
     model = Article
     context_object_name = 'article'
     success_url = reverse_lazy('index')
     form_class = ArticleDeleteForm
+    permission_required = 'webapp.delete_article'
+
+    def has_permission(self):
+        return super().has_permission() or self.get_object().author == self.request.user
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
