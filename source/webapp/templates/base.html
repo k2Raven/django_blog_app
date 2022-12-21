@@ -30,8 +30,8 @@
                     <p class="ms-auto text-secondary d-inline-block my-0 py-auto" >Привет, {{ request.user.username }}</p>
                     <a class="btn btn-dark ms-2" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Выйти</a>
             {% else %}
-                    <a class="btn btn-dark ms-auto" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Войти</a>
-                    <a class="btn btn-outline-secondary ms-2" href="{% url 'accounts:create' %}?next={{ request.get_full_path }}">Регистрация</a>
+                    <a class="btn btn-dark ms-auto" href="{% url 'accounts:login' %}?next={% if request.GET.next  %}{{ request.GET.next }}{% else %}{{ request.get_full_path }}{% endif %}">Войти</a>
+                    <a class="btn btn-outline-secondary ms-2" href="{% url 'accounts:create' %}?next={% if request.GET.next  %}{{ request.GET.next }}{% else %}{{ request.get_full_path }}{% endif %}">Регистрация</a>
             {% endif %}
         </div>
     </div>
@@ -39,7 +39,9 @@
 
 
 <div class="container">
+    {{ request.get_full_path }}
     {% block content %}{% endblock %}
+{{ request.GET.next }}
 </div>
 
 
