@@ -27,7 +27,7 @@
             </ul>
 
             {% if request.user.is_authenticated %}
-                    <p class="ms-auto text-secondary d-inline-block my-0 py-auto" >Привет, {{ request.user.username }}</p>
+                    <p class="ms-auto text-secondary d-inline-block my-0 py-auto" >Привет, <a href="{% url 'accounts:detail' request.user.pk %}">{{ request.user.username }}</a></p>
                     <a class="btn btn-dark ms-2" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Выйти</a>
             {% else %}
                     <a class="btn btn-dark ms-auto" href="{% url 'accounts:login' %}?next={% if request.GET.next  %}{{ request.GET.next }}{% else %}{{ request.get_full_path }}{% endif %}">Войти</a>
@@ -39,9 +39,7 @@
 
 
 <div class="container">
-    {{ request.get_full_path }}
     {% block content %}{% endblock %}
-{{ request.GET.next }}
 </div>
 
 

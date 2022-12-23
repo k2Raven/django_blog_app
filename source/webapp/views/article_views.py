@@ -89,6 +89,10 @@ class ArticleUpdateView(PermissionRequiredMixin, UpdateView):
     def has_permission(self):
         return super().has_permission() or self.get_object().author == self.request.user
 
+    # def has_permission(self):
+    #     project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
+    #     return super().has_permission() and self.request.user in project.user.all()
+
 
 class ArticleDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'article/article_delete.html'
